@@ -1,6 +1,6 @@
 Requirements: Python >= 2.5
 
-The directory the database is to be created in need to be writable by
+The directory the database is to be created in needs to be writable by
 the web server.
 
 If you don't want everyone to be able to post to your blog you'll need
