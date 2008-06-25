@@ -1,0 +1,21 @@
+Requirements: Python >= 2.5
+
+The directory the database is to be created in need to be writable by
+the web server.
+
+If you don't want everyone to be able to post to your blog you'll need
+to secure post.cgi somehow. This will vary depending on the web server
+you're using and your needs. Use your brain.
+
+If you're using Apache, one possible solution is to place the following
+in a file called .htaccess in the same directory as post.cgi:
+
+<Files post.cgi>
+    AuthType Basic
+    AuthName "Password Required"
+    AuthUserFile /path/to/.htpasswd
+    Require valid-user
+</Files>
+
+You'll obviously also need to create a .htpasswd file containing your
+authentication credentials. This can be done using the htpasswd command.
