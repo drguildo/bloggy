@@ -1,11 +1,11 @@
 import sqlite3
 import sys
 
-DBFILENAME = "bloggy.db"
+import config
 
 def connect():
     try:
-        conn = sqlite3.connect(DBFILENAME)
+        conn = sqlite3.connect(config.DBPATH)
         conn.execute("CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY, date , title TEXT, text TEXT)")
     except sqlite3.OperationalError:
         print 'Failed to connect to database. Check file and directory permissions.'
