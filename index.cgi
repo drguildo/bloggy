@@ -6,6 +6,7 @@ import sqlite3
 import time
 
 import common
+import config
 
 def displaypost(date, title, body):
     """Formats and prints a post"""
@@ -31,8 +32,22 @@ else:
         else:
             print "<p>No such post.</p>"
     else:
-        for row in conn.execute("SELECT * FROM entries ORDER BY date DESC"):
+        offset = 0
+        if form.has_key("offset"):
+            offset = int(form.getvalue("offset"))
+        for row in conn.execute("SELECT * FROM entries ORDER BY date DESC LIMIT ? OFFSET ?", (config.NUMPOSTS, offset)):
             displaypost(row[1], '<a href="index.cgi?id=%s">%s</a>' % (row[0], row[2]), row[3])
+        print '<p align="center">'
+        if offset > 0:
+            newoffset = offset - config.NUMPOSTS
+            if newoffset < 0:
+                newoffset = 0
+            print '<a href="index.cgi?offset=%s">Prev</a>' % newoffset
+        numposts = common.getnumposts(conn)
+        if offset + config.NUMPOSTS < numposts:
+            newoffset = offset + config.NUMPOSTS
+            print '<a href="index.cgi?offset=%s">Next</a>' % newoffset
+        print '</p>'
 
 print '<hr />'
 print '<p>Page generated in %s seconds.</p>' % (time.time() - starttime)
