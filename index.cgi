@@ -22,7 +22,8 @@ print "Content-type: text/html; charset=UTF-8\n"
 
 conn = common.connect()
 
-if common.getnumposts(conn) == 0:
+numposts = common.getnumposts(conn)
+if numposts == 0:
     print '<p>Nothing here yet. How about you <a href="post.cgi">post</a> something interesting?</p>'
 else:
     if form.has_key("id"):
@@ -43,7 +44,6 @@ else:
             if newoffset < 0:
                 newoffset = 0
             print '<a href="index.cgi?offset=%s">Prev</a>' % newoffset
-        numposts = common.getnumposts(conn)
         if offset + config.NUMPOSTS < numposts:
             newoffset = offset + config.NUMPOSTS
             print '<a href="index.cgi?offset=%s">Next</a>' % newoffset
