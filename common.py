@@ -13,6 +13,10 @@ def connect():
     return conn
 
 def getnumposts(conn, id=None):
+    """Enumerate the number of posts in the database. if an ID is specified
+    then enumerate the number of posts with that ID. The latter should be 0 or
+    1 so essentially this is a check for whether the specified post exists.
+    """
     if id:
         numposts = conn.execute("SELECT count(id) FROM entries WHERE id = ?", (id,)).fetchone()
     else:
