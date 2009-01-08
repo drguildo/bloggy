@@ -7,12 +7,14 @@ import time
 
 import common
 import config
+import textile
 
 def displaypost(date, title, body):
     """Formats and prints a post"""
     print '<h1>%s</h1>' % title
     print '<h3>%s</h1>' % date
-    print '<p>%s</p>' % body
+    # Are these <p></p> tags redundant?
+    print '<p>%s</p>' % textile.textile(body)
 
 starttime = time.time()
 
