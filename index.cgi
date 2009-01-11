@@ -13,8 +13,7 @@ def displaypost(date, title, body):
     """Formats and prints a post"""
     print '<h1>%s</h1>' % title
     print '<h3>%s</h1>' % date
-    # Are these <p></p> tags redundant?
-    print '<p>%s</p>' % textile.textile(body)
+    print '%s' % textile.textile(body)
 
 starttime = time.time()
 
