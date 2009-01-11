@@ -21,6 +21,8 @@ form = cgi.FieldStorage()
 
 print "Content-type: text/html; charset=UTF-8\n"
 
+common.printheaders(config.TITLE)
+
 conn = common.connect()
 
 numposts = common.getnumposts(conn)

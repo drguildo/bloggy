@@ -1,0 +1,23 @@
+body {
+    width: 85%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+}
+
+form {
+    text-align: center;
+}
+
+input#posttitle {
+    width: 80%;
+}
+
+textarea#postbody {
+    height: 340;
+    width: 80%;
+}
+
+table#postlist {
+    width: 100%;
+}
