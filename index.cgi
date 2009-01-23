@@ -21,13 +21,15 @@ import time
 
 import common
 import config
-import textile
+import markdown2
 
 def displaypost(date, title, body):
     """Formats and prints a post"""
+    print '<div class="blogpost">'
     print '<h1>%s</h1>' % title
     print '<h3>%s</h1>' % date
-    print '%s' % textile.textile(body)
+    print '%s' % markdown2.markdown(body)
+    print '</div>'
 
 starttime = time.time()
 
