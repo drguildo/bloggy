@@ -47,3 +47,7 @@ table#postlist, tr {
     padding-right: 1em;
     margin-bottom: 1em;
 }
+
+#navigation {
+    text-align: center;
+}

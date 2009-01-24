@@ -27,7 +27,7 @@ def displaypost(date, title, body):
     """Formats and prints a post"""
     print '<div class="blogpost">'
     print '<h1>%s</h1>' % title
-    print '<h3>%s</h1>' % date
+    print '<h3>%s</h3>' % date
     print '%s' % markdown2.markdown(body)
     print '</div>'
 
@@ -37,6 +37,7 @@ form = cgi.FieldStorage()
 
 print "Content-type: text/html; charset=UTF-8\n"
 
+print '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">'
 print '<html>'
 
 common.printheaders(config.TITLE)
@@ -59,7 +60,7 @@ else:
             offset = int(form.getvalue("offset"))
         for row in conn.execute("SELECT * FROM entries ORDER BY date DESC LIMIT ? OFFSET ?", (config.NUMPOSTS, offset)):
             displaypost(row[1], '<a href="index.cgi?id=%s">%s</a>' % (row[0], row[2]), row[3])
-        print '<p align="center">'
+        print '<div id="navigation">'
         if offset > 0:
             newoffset = offset - config.NUMPOSTS
             if newoffset < 0:
@@ -68,7 +69,7 @@ else:
         if offset + config.NUMPOSTS < numposts:
             newoffset = offset + config.NUMPOSTS
             print '<a href="index.cgi?offset=%s">Next</a>' % newoffset
-        print '</p>'
+        print '</div>'
 
 print '</html>'
 
