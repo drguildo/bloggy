@@ -37,6 +37,8 @@ form = cgi.FieldStorage()
 
 print "Content-type: text/html; charset=UTF-8\n"
 
+print '<html>'
+
 common.printheaders(config.TITLE)
 
 conn = common.connect()
@@ -68,7 +70,8 @@ else:
             print '<a href="index.cgi?offset=%s">Next</a>' % newoffset
         print '</p>'
 
-print '<hr />'
-print '<p>Page generated in %s seconds.</p>' % (time.time() - starttime)
+print '</html>'
+
+print '<!-- Page generated in %s seconds. -->' % (time.time() - starttime)
 
 conn.close()
