@@ -28,6 +28,9 @@ form = cgi.FieldStorage()
 
 print 'Content-type: text/html; charset=UTF-8\n'
 
+print '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">'
+print '<html>'
+
 common.printheaders(config.TITLE + " - Post")
 
 conn = common.connect()
@@ -70,6 +73,8 @@ print '<textarea name="body" id="postbody">%s</textarea>' % cgi.escape(text, Tru
 print '<p><button type="submit" name="submit">Submit</button></p>'
 
 print '</form>'
+
+print '</html>'
 
 conn.commit()
 conn.close()
