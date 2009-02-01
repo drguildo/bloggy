@@ -68,13 +68,19 @@ else:
         print '</tr>'
     print '</table>'
 
+if form.has_key("edit"):
+    print '<p><b>Editing post %s.</b></p>' % form.getvalue("edit")
+    print '<input type="hidden" name="update" value="%s">' % form.getvalue("edit")
+
 if form.has_key("preview"):
+    # Perpetuate the update key so that when the post is submitted it
+    # correctly replaces an existing post rather than inserting a new
+    # one.
+    if form.has_key("update"):
+        print '<input type="hidden" name="update" value="%s">' % form.getvalue("update")
     print '<div id="preview">'
     print markdown2.markdown(text)
     print '</div>'
-elif form.has_key("edit"):
-    print '<p><b>Editing post %s.</b></p>' % form.getvalue("edit")
-    print '<input type="hidden" name="update" value="%s">' % form.getvalue("edit")
 
 print '<div id="editingControls">'
 print '<input name="title" id="posttitle" type="text" value="%s">' % cgi.escape(title, True)
