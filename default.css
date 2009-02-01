@@ -6,21 +6,14 @@ body {
     text-align: justify;
 }
 
-form {
-    text-align: center;
-}
-
-input#posttitle {
+input#posttitle, textarea#postbody {
     border: thin solid black;
     padding: 4px;
     width: 80%;
 }
 
 textarea#postbody {
-    border: thin solid black;
-    padding: 4px;
     height: 32em;
-    width: 80%;
 }
 
 table#postlist {
@@ -40,12 +33,17 @@ table#postlist, tr {
     border: thin solid black;
 }
 
-.blogpost {
+.blogpost, #preview {
     background-color: white;
     border: medium dotted black;
     padding-left: 1em;
     padding-right: 1em;
+    margin-top: 1em;
     margin-bottom: 1em;
+}
+
+#editingControls {
+    text-align: center;
 }
 
 #navigation {

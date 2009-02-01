@@ -21,6 +21,8 @@ import sqlite3
 import common
 import config
 
+import markdown2
+
 title = "Please enter a title."
 text = "Type something interesting."
 
@@ -38,6 +40,9 @@ conn = common.connect()
 if form.has_key("delete"):
     for postid in form.getlist("delete"):
         conn.execute("DELETE FROM entries WHERE id = ?", (postid,))
+elif form.has_key("preview"):
+    title = form.getvalue("title")
+    text = form.getvalue("body")
 elif form.has_key("edit"):
     (title, text) = conn.execute("SELECT title, text FROM entries WHERE id = ?", (form.getvalue("edit"),)).fetchone()
 elif form.has_key("title") and form.has_key("body"):
@@ -63,14 +68,23 @@ else:
         print '</tr>'
     print '</table>'
 
-if form.has_key("edit"):
+if form.has_key("preview"):
+    print '<div id="preview">'
+    print markdown2.markdown(text)
+    print '</div>'
+elif form.has_key("edit"):
     print '<p><b>Editing post %s.</b></p>' % form.getvalue("edit")
     print '<input type="hidden" name="update" value="%s">' % form.getvalue("edit")
 
-print '<p><input name="title" id="posttitle" type="text" value="%s"></p>' % cgi.escape(title, True)
+print '<div id="editingControls">'
+print '<input name="title" id="posttitle" type="text" value="%s">' % cgi.escape(title, True)
 print '<textarea name="body" id="postbody">%s</textarea>' % cgi.escape(text, True)
 
-print '<p><button type="submit" name="submit">Submit</button></p>'
+print '<p>'
+print '<input type="submit" name="preview" value="Preview">'
+print '<input type="submit" name="submit" value="Submit">'
+print '</p>'
+print '</div>'
 
 print '</form>'
 

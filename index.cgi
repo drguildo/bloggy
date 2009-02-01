@@ -21,6 +21,7 @@ import time
 
 import common
 import config
+
 import markdown2
 
 def displaypost(date, title, body):
@@ -28,7 +29,7 @@ def displaypost(date, title, body):
     print '<div class="blogpost">'
     print '<h1>%s</h1>' % title
     print '<h3>%s</h3>' % date
-    print '%s' % markdown2.markdown(body)
+    print markdown2.markdown(body)
     print '</div>'
 
 starttime = time.time()
