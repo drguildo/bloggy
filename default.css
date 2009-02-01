@@ -19,7 +19,7 @@ input#posttitle {
 textarea#postbody {
     border: thin solid black;
     padding: 4px;
-    height: 340;
+    height: 32em;
     width: 80%;
 }
 
