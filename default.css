@@ -1,15 +1,9 @@
 body {
-    background-color: #b4c9d5;
+    background-color: #bfe4ff;
     width: 85%;
     margin-left: auto;
     margin-right: auto;
     text-align: justify;
-}
-
-input#posttitle, textarea#postbody {
-    border: thin solid black;
-    padding: 4px;
-    width: 80%;
 }
 
 textarea#postbody {
@@ -18,24 +12,13 @@ textarea#postbody {
 
 table#postlist {
     background-color: white;
+    border: thin solid black;
     width: 100%;
-}
-
-table#postlist, th {
-    border: thin solid black;
-}
-
-table#postlist, td {
-    border: thin solid black;
-}
-
-table#postlist, tr {
-    border: thin solid black;
 }
 
 .blogpost, #preview {
     background-color: white;
-    border: medium dotted black;
+    border: thin dashed black;
     padding-left: 1em;
     padding-right: 1em;
     margin-top: 1em;
@@ -43,7 +26,15 @@ table#postlist, tr {
 }
 
 #editingControls {
+    margin: 1em;
     text-align: center;
+}
+
+input#posttitle, textarea#postbody {
+    font-size: 1.4em;
+    border: thin solid black;
+    padding: 4px;
+    width: 80%;
 }
 
 #navigation {
