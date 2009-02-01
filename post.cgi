@@ -56,7 +56,7 @@ print '<form action="post.cgi" method="post">'
 if common.getnumposts(conn) == 0:
     print '<p>Nothing here yet.</p>'
 else:
-    print '<table id="postlist" border="1">'
+    print '<table id="postlist">'
     print '<tr><th>ID</th><th>Date</th><th>Title</th><th>Delete</th><th>Update</th></tr>'
     for row in conn.execute("SELECT id, date, title FROM entries ORDER BY date DESC"):
         print '<tr>'
