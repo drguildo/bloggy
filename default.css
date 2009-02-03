@@ -38,5 +38,9 @@ input#posttitle, textarea#postbody {
 }
 
 #navigation {
+    background-color: white;
+    border: thin dashed black;
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
     text-align: center;
 }
