@@ -17,7 +17,6 @@
 import cgi
 #import cgitb; cgitb.enable()
 import sqlite3
-import time
 
 import common
 import config
@@ -31,8 +30,6 @@ def displaypost(date, title, body):
     print '<h3>%s</h3>' % date
     print markdown2.markdown(body)
     print '</div>'
-
-starttime = time.time()
 
 form = cgi.FieldStorage()
 
@@ -73,7 +70,5 @@ else:
         print '</div>'
 
 print '</html>'
-
-print '<!-- Page generated in %s seconds. -->' % (time.time() - starttime)
 
 conn.close()
