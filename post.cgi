@@ -31,7 +31,7 @@ print 'Content-type: text/html; charset=UTF-8\n'
 print '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">'
 print '<html>'
 
-common.printheaders(config.TITLE + " - Post")
+common.print_headers(config.TITLE + " - Post")
 
 conn = common.connect()
 

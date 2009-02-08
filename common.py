@@ -39,7 +39,7 @@ def getnumposts(conn, id=None):
         numposts = conn.execute("SELECT count(id) FROM entries").fetchone()
     return int(numposts[0])
 
-def printheaders(title):
+def print_headers(title):
     print '<head>'
     print '<title>' + title + '</title>'
     print '<link href="default.css" rel="stylesheet" type="text/css">'
