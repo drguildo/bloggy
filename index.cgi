@@ -21,16 +21,6 @@ import sqlite3
 import common
 import config
 
-import markdown2
-
-def displaypost(date, title, body):
-    """Formats and prints a post"""
-    print '<div class="blogpost">'
-    print '<h1>%s</h1>' % title
-    print '<h3>%s</h3>' % date
-    print markdown2.markdown(body)
-    print '</div>'
-
 form = cgi.FieldStorage()
 
 print "Content-type: text/html; charset=UTF-8\n"
@@ -48,16 +38,17 @@ if numposts == 0:
 else:
     if form.has_key("id"):
         if common.getnumposts(conn, form.getvalue("id")) > 0:
-            (date, title, text) = conn.execute("SELECT date, title, text FROM entries WHERE id = ?", (form.getvalue("id"),)).fetchone()
-            displaypost(date, title, text)
+            (title, text, date) = conn.execute("SELECT title, text, date FROM entries WHERE id = ?", (form.getvalue("id"),)).fetchone()
+            common.displaypost(title, text, date)
         else:
             print "<p>No such post.</p>"
     else:
         offset = 0
         if form.has_key("offset"):
             offset = int(form.getvalue("offset"))
-        for row in conn.execute("SELECT * FROM entries ORDER BY date DESC LIMIT ? OFFSET ?", (config.NUMPOSTS, offset)):
-            displaypost(row[1], '<a href="index.cgi?id=%s">%s</a>' % (row[0], row[2]), row[3])
+        for (postid, title, text, date) in conn.execute("SELECT id, title, text, date FROM entries ORDER BY date DESC LIMIT ? OFFSET ?", (config.NUMPOSTS, offset)):
+            title = '<a href="index.cgi?id=%s">%s</a>' % (postid, title)
+            common.displaypost(title, text, date)
 
         # Only print the navigation bar if the number of posts exceeds
         # the number to be displayed per page.

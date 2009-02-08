@@ -17,6 +17,8 @@ import sys
 
 import config
 
+import markdown2
+
 def connect():
     try:
         conn = sqlite3.connect(config.DBPATH)
@@ -42,3 +44,12 @@ def printheaders(title):
     print '<title>' + title + '</title>'
     print '<link href="default.css" rel="stylesheet" type="text/css">'
     print '</head>'
+
+def displaypost(title, body, date=None):
+    """Formats and prints a post"""
+    print '<div class="blogpost">'
+    print '<h1>%s</h1>' % title
+    if date:
+        print '<h3>%s</h3>' % date
+    print markdown2.markdown(body)
+    print '</div>'
