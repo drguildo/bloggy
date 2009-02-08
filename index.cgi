@@ -34,14 +34,14 @@ conn = common.connect()
 
 numposts = common.getnumposts(conn)
 if numposts == 0:
-    print '<p>Nothing here yet. How about you <a href="post.cgi">post</a> something interesting?</p>'
+    common.print_msg('Nothing here yet. How about you <a href="post.cgi">post</a> something interesting?')
 else:
     if form.has_key("id"):
         if common.getnumposts(conn, form.getvalue("id")) > 0:
             (title, text, date) = conn.execute("SELECT title, text, date FROM entries WHERE id = ?", (form.getvalue("id"),)).fetchone()
             common.print_post(title, text, date)
         else:
-            common.print_error("No such post.")
+            common.print_msg("No such post.")
     else:
         offset = 0
         if form.has_key("offset"):
