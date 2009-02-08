@@ -46,15 +46,16 @@ def print_headers(title):
     print '<link href="default.css" rel="stylesheet" type="text/css">'
     print '</head>'
 
-def print_error(msg):
-    print '<div class="error">'
+def print_class(msg, class_):
+    print '<div class="%s">' % class_
     print '<p>%s</p>' % msg
     print '</div>'
 
+def print_error(msg):
+    print_class(msg, "error")
+
 def print_msg(msg):
-    print '<div class="message">'
-    print '<p>%s</p>' % msg
-    print '</div>'
+    print_class(msg, "message")
 
 def print_post(title, body, date=None):
     """Formats and prints a post"""
