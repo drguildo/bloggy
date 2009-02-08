@@ -58,16 +58,20 @@ else:
             offset = int(form.getvalue("offset"))
         for row in conn.execute("SELECT * FROM entries ORDER BY date DESC LIMIT ? OFFSET ?", (config.NUMPOSTS, offset)):
             displaypost(row[1], '<a href="index.cgi?id=%s">%s</a>' % (row[0], row[2]), row[3])
-        print '<div id="navigation">'
-        if offset > 0:
-            newoffset = offset - config.NUMPOSTS
-            if newoffset < 0:
-                newoffset = 0
-            print '<a href="index.cgi?offset=%s">Prev</a>' % newoffset
-        if offset + config.NUMPOSTS < numposts:
-            newoffset = offset + config.NUMPOSTS
-            print '<a href="index.cgi?offset=%s">Next</a>' % newoffset
-        print '</div>'
+
+        # Only print the navigation bar if the number of posts exceeds
+        # the number to be displayed per page.
+        if numposts > config.NUMPOSTS:
+            print '<div id="navigation">'
+            if offset > 0:
+                newoffset = offset - config.NUMPOSTS
+                if newoffset < 0:
+                    newoffset = 0
+                print '<a href="index.cgi?offset=%s">Prev</a>' % newoffset
+            if offset + config.NUMPOSTS < numposts:
+                newoffset = offset + config.NUMPOSTS
+                print '<a href="index.cgi?offset=%s">Next</a>' % newoffset
+            print '</div>'
 
 print '</html>'
 
