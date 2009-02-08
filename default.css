@@ -6,8 +6,24 @@ body {
     text-align: justify;
 }
 
-textarea#postbody {
-    height: 32em;
+.blogpost, .error {
+    padding-left: 1em;
+    padding-right: 1em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.blogpost {
+    background-color: white;
+    border: thin dashed black;
+}
+
+.error {
+    background-color: red;
+    border: medium dashed white;
+    color: white;
+    font-weight: bold;
+    text-align: center;
 }
 
 table#postlist {
@@ -16,18 +32,8 @@ table#postlist {
     width: 100%;
 }
 
-.blogpost {
-    background-color: white;
-    border: thin dashed black;
-    padding-left: 1em;
-    padding-right: 1em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-#editingControls {
-    margin: 1em;
-    text-align: center;
+textarea#postbody {
+    height: 32em;
 }
 
 input#posttitle, textarea#postbody {
@@ -35,6 +41,11 @@ input#posttitle, textarea#postbody {
     border: thin solid black;
     padding: 4px;
     width: 80%;
+}
+
+#editingControls {
+    margin: 1em;
+    text-align: center;
 }
 
 #navigation {

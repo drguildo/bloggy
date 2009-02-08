@@ -24,7 +24,8 @@ def connect():
         conn = sqlite3.connect(config.DBPATH)
         conn.execute("CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY, date , title TEXT, text TEXT)")
     except sqlite3.OperationalError:
-        print 'Failed to connect to database. Check file and directory permissions.'
+        print_error("Failed to connect to database. Check file and \
+                directory permissions.")
         sys.exit(1)
     return conn
 
@@ -44,6 +45,11 @@ def print_headers(title):
     print '<title>' + title + '</title>'
     print '<link href="default.css" rel="stylesheet" type="text/css">'
     print '</head>'
+
+def print_error(msg):
+    print '<div class="error">'
+    print '<p>%s</p>' % msg
+    print '</div>'
 
 def print_post(title, body, date=None):
     """Formats and prints a post"""

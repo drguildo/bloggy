@@ -41,7 +41,7 @@ else:
             (title, text, date) = conn.execute("SELECT title, text, date FROM entries WHERE id = ?", (form.getvalue("id"),)).fetchone()
             common.print_post(title, text, date)
         else:
-            print "<p>No such post.</p>"
+            common.print_error("No such post.")
     else:
         offset = 0
         if form.has_key("offset"):
