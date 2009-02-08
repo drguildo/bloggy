@@ -55,14 +55,14 @@ if common.getnumposts(conn) == 0:
     print '<p>Nothing here yet.</p>'
 else:
     print '<table id="postlist">'
-    print '<tr><th>ID</th><th>Date</th><th>Title</th><th>Delete</th><th>Update</th></tr>'
+    print '<tr><th>ID</th><th>Date</th><th>Title</th><th>Delete</th></tr>'
     for (postid, date, title) in conn.execute("SELECT id, date, title FROM entries ORDER BY date DESC"):
         print '<tr>'
         print '<td>%s</td>' % postid
         print '<td>%s</td>' % date
         print '<td>%s</td>' % ('<a href="index.cgi?id=' + str(postid) + '">' + title + '</a>')
         print '<td><input type="checkbox" name="delete" value="%s"></td>' % postid
-        print '<td><input type="radio" name="edit" value="%s"></td>' % postid
+        print '<td><a href="post.cgi?edit=%s">Edit</a></td>' % postid
         print '</tr>'
     print '</table>'
 
