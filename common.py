@@ -45,7 +45,7 @@ def printheaders(title):
     print '<link href="default.css" rel="stylesheet" type="text/css">'
     print '</head>'
 
-def displaypost(title, body, date=None):
+def print_post(title, body, date=None):
     """Formats and prints a post"""
     print '<div class="blogpost">'
     print '<h1>%s</h1>' % title
