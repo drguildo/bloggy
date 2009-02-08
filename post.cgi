@@ -21,8 +21,6 @@ import sqlite3
 import common
 import config
 
-import markdown2
-
 edit_title = "Please enter a title."
 edit_text = "Type something interesting."
 
