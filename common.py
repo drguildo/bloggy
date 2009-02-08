@@ -29,13 +29,15 @@ def connect():
         sys.exit(1)
     return conn
 
-def getnumposts(conn, id=None):
-    """Enumerate the number of posts in the database. if an ID is specified
-    then enumerate the number of posts with that ID. The latter should be 0 or
-    1 so essentially this is a check for whether the specified post exists.
+def getnumposts(conn, postid=None):
+    """Enumerate the number of posts in the database. If an ID is
+    specified then enumerate the number of posts with that ID. The
+    result of the latter should be 0 or 1 as essentially this is a check
+    for whether the specified post exists.
     """
-    if id:
-        numposts = conn.execute("SELECT count(id) FROM entries WHERE id = ?", (id,)).fetchone()
+    if postid:
+        numposts = conn.execute("SELECT count(id) FROM entries WHERE id = ?",
+                (postid,)).fetchone()
     else:
         numposts = conn.execute("SELECT count(id) FROM entries").fetchone()
     return int(numposts[0])
