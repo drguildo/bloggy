@@ -1,4 +1,22 @@
-Requirements: Python >= 2.5
+Requirements
+------------
+
+The only requirements are the Python interpreter and the sqlite3 module.
+Oh, and a web server, obviously. These instructions will cover the
+Apache web server as that's the most popular and also the biggest pain
+in the arse to configure.
+
+Installation
+------------
+
+Extract Bloggy to a directory that is visible to your web server, e.g.
+the public_html directory in your home directory.
+
+Configuration
+-------------
+
+Configuration directives are located in config.py in the directory you
+placed Bloggy.
 
 The directory the database is to be created in needs to be writable by
 the web server.
@@ -17,5 +35,5 @@ in a file called .htaccess in the same directory as post.cgi:
     Require valid-user
 </Files>
 
-You'll obviously also need to create a .htpasswd file containing your
+You'll obviously need to create a .htpasswd file containing your
 authentication credentials. This can be done using the htpasswd command.
