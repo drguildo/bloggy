@@ -43,7 +43,7 @@ input#posttitle, textarea#postbody {
     width: 80%;
 }
 
-#editingControls {
+#editing {
     margin: 1em;
     text-align: center;
 }

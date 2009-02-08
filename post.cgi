@@ -78,7 +78,7 @@ if form.has_key("preview"):
         print '<input type="hidden" name="update" value="%s">' % form.getvalue("update")
     common.print_post(edit_title, edit_text)
 
-print '<div id="editingControls">'
+print '<div id="editing">'
 print '<input name="title" id="posttitle" type="text" value="%s">' % cgi.escape(edit_title, True)
 print '<textarea name="body" id="postbody">%s</textarea>' % cgi.escape(edit_text, True)
 
