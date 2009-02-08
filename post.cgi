@@ -23,8 +23,8 @@ import config
 
 import markdown2
 
-title = "Please enter a title."
-text = "Type something interesting."
+edit_title = "Please enter a title."
+edit_text = "Type something interesting."
 
 form = cgi.FieldStorage()
 
@@ -41,10 +41,10 @@ if form.has_key("delete"):
     for postid in form.getlist("delete"):
         conn.execute("DELETE FROM entries WHERE id = ?", (postid,))
 elif form.has_key("preview"):
-    title = form.getvalue("title")
-    text = form.getvalue("body")
+    edit_title = form.getvalue("title")
+    edit_text = form.getvalue("body")
 elif form.has_key("edit"):
-    (title, text) = conn.execute("SELECT title, text FROM entries WHERE id = ?", (form.getvalue("edit"),)).fetchone()
+    (edit_title, edit_text) = conn.execute("SELECT title, text FROM entries WHERE id = ?", (form.getvalue("edit"),)).fetchone()
 elif form.has_key("title") and form.has_key("body"):
     if form.has_key("update"):
         conn.execute("UPDATE entries SET title = ?, text = ? WHERE id = ?", (form.getvalue("title"), form.getvalue("body"), form.getvalue("update")))
@@ -58,13 +58,13 @@ if common.getnumposts(conn) == 0:
 else:
     print '<table id="postlist">'
     print '<tr><th>ID</th><th>Date</th><th>Title</th><th>Delete</th><th>Update</th></tr>'
-    for row in conn.execute("SELECT id, date, title FROM entries ORDER BY date DESC"):
+    for (postid, date, title) in conn.execute("SELECT id, date, title FROM entries ORDER BY date DESC"):
         print '<tr>'
-        print '<td>%s</td>' % row[0]
-        print '<td>%s</td>' % row[1]
-        print '<td>%s</td>' % ('<a href="index.cgi?id=' + str(row[0]) + '">' + row[2] + '</a>')
-        print '<td><input type="checkbox" name="delete" value="%s"></td>' % row[0]
-        print '<td><input type="radio" name="edit" value="%s"></td>' % row[0]
+        print '<td>%s</td>' % postid
+        print '<td>%s</td>' % date
+        print '<td>%s</td>' % ('<a href="index.cgi?id=' + str(postid) + '">' + title + '</a>')
+        print '<td><input type="checkbox" name="delete" value="%s"></td>' % postid
+        print '<td><input type="radio" name="edit" value="%s"></td>' % postid
         print '</tr>'
     print '</table>'
 
@@ -78,13 +78,11 @@ if form.has_key("preview"):
     # one.
     if form.has_key("update"):
         print '<input type="hidden" name="update" value="%s">' % form.getvalue("update")
-    print '<div id="preview">'
-    print markdown2.markdown(text)
-    print '</div>'
+    common.displaypost(edit_title, edit_text)
 
 print '<div id="editingControls">'
-print '<input name="title" id="posttitle" type="text" value="%s">' % cgi.escape(title, True)
-print '<textarea name="body" id="postbody">%s</textarea>' % cgi.escape(text, True)
+print '<input name="title" id="posttitle" type="text" value="%s">' % cgi.escape(edit_title, True)
+print '<textarea name="body" id="postbody">%s</textarea>' % cgi.escape(edit_text, True)
 
 print '<p>'
 print '<input type="submit" name="preview" value="Preview">'

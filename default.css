@@ -16,7 +16,7 @@ table#postlist {
     width: 100%;
 }
 
-.blogpost, #preview {
+.blogpost {
     background-color: white;
     border: thin dashed black;
     padding-left: 1em;
