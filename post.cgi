@@ -52,7 +52,7 @@ elif form.has_key("title") and form.has_key("body"):
 print '<form action="post.cgi" method="post">'
 
 if common.getnumposts(conn) == 0:
-    print '<p>Nothing here yet.</p>'
+    common.print_msg("Nothing here yet.")
 else:
     print '<table id="postlist">'
     print '<tr><th>ID</th><th>Date</th><th>Title</th><th>Delete</th></tr>'
