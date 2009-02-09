@@ -30,6 +30,8 @@ print '<html>'
 
 common.print_headers(config.TITLE)
 
+common.header()
+
 conn = common.connect()
 
 numposts = common.getnumposts(conn)
@@ -63,6 +65,8 @@ else:
                 newoffset = offset + config.NUMPOSTS
                 print '<a href="index.cgi?offset=%s">Next</a>' % newoffset
             print '</div>'
+
+common.footer()
 
 print '</html>'
 

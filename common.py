@@ -53,6 +53,11 @@ def print_class(msg, class_):
     print '<p>%s</p>' % msg
     print '</div>'
 
+def print_id(msg, id_):
+    print '<div id="%s">' % id_
+    print '<p>%s</p>' % msg
+    print '</div>'
+
 def print_error(msg):
     print_class(msg, "error")
 
@@ -67,3 +72,9 @@ def print_post(title, body, date=None):
         print '<h3>%s</h3>' % date
     print markdown2.markdown(body)
     print '</div>'
+
+def header():
+    print_id(config.HEADER, "header")
+
+def footer():
+    print_id(config.FOOTER, "footer")

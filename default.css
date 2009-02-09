@@ -6,14 +6,24 @@ body {
     text-align: justify;
 }
 
-.blogpost, .error, .message {
+#header {
+    font-size: 24pt;
+    font-weight: bold;
+    text-align: center;
+}
+
+#footer {
+    text-align: center;
+}
+
+.blogpost, .error, .message, #footer {
     padding-left: 1em;
     padding-right: 1em;
     margin-top: 1em;
     margin-bottom: 1em;
 }
 
-.blogpost, .message {
+.blogpost, .message, #header, #footer {
     background-color: white;
     border: thin dashed black;
 }
