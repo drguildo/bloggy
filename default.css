@@ -1,5 +1,5 @@
 body {
-    background-color: #bfe4ff;
+    background-color: #6a7b6c;
     width: 85%;
     margin-left: auto;
     margin-right: auto;
@@ -23,8 +23,9 @@ body {
     margin-bottom: 1em;
 }
 
-.blogpost, .message, #header, #footer {
-    background-color: white;
+.blogpost, .message, #header, #footer, #navigation,
+input#posttitle, textarea#postbody, table#postlist {
+    background-color: #fdfeea;
     border: thin dashed black;
 }
 
@@ -37,7 +38,6 @@ body {
 }
 
 table#postlist {
-    background-color: white;
     border: thin solid black;
     width: 100%;
 }
@@ -47,8 +47,8 @@ textarea#postbody {
 }
 
 input#posttitle, textarea#postbody {
-    font-size: 1.4em;
     border: thin solid black;
+    font-size: 1.4em;
     padding: 4px;
     width: 80%;
 }
@@ -59,8 +59,6 @@ input#posttitle, textarea#postbody {
 }
 
 #navigation {
-    background-color: white;
-    border: thin dashed black;
     padding-top: 0.4em;
     padding-bottom: 0.4em;
     text-align: center;
