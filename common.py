@@ -14,6 +14,7 @@
 
 import sqlite3
 import sys
+import time
 
 import config
 
@@ -22,7 +23,8 @@ import markdown2
 def connect():
     try:
         conn = sqlite3.connect(config.DBPATH)
-        conn.execute("CREATE TABLE IF NOT EXISTS entries (id INTEGER PRIMARY KEY, date , title TEXT, text TEXT)")
+        conn.execute("CREATE TABLE IF NOT EXISTS entries (id INTEGER \
+                PRIMARY KEY, date INTEGER, title TEXT, text TEXT)")
     except sqlite3.OperationalError:
         print_error("Failed to connect to database. Check file and \
                 directory permissions.")
@@ -69,7 +71,7 @@ def print_post(title, body, date=None):
     print '<div class="blogpost">'
     print '<h1>%s</h1>' % title
     if date:
-        print '<h3>%s</h3>' % date
+        print '<h3>%s</h3>' % time.ctime(date)
     print markdown2.markdown(body)
     print '</div>'
 

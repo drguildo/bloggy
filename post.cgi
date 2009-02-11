@@ -17,6 +17,7 @@
 import cgi
 #import cgitb; cgitb.enable()
 import sqlite3
+import time
 
 import common
 import config
@@ -47,7 +48,9 @@ elif form.has_key("title") and form.has_key("body"):
     if form.has_key("update"):
         conn.execute("UPDATE entries SET title = ?, text = ? WHERE id = ?", (form.getvalue("title"), form.getvalue("body"), form.getvalue("update")))
     else:
-        conn.execute("INSERT INTO entries VALUES (NULL, current_timestamp, ?, ?)", (form.getvalue("title"), form.getvalue("body")))
+        curtime = int(time.time())
+        conn.execute("INSERT INTO entries VALUES (NULL, ?, ?, ?)",
+                (curtime, form.getvalue("title"), form.getvalue("body")))
 
 print '<form action="post.cgi" method="post">'
 
