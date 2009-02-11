@@ -62,7 +62,7 @@ else:
     for (postid, date, title) in conn.execute("SELECT id, date, title FROM entries ORDER BY date DESC"):
         print '<tr>'
         print '<td>%s</td>' % postid
-        print '<td>%s</td>' % date
+        print '<td>%s</td>' % time.ctime(date)
         print '<td>%s</td>' % ('<a href="index.cgi?id=' + str(postid) + '">' + title + '</a>')
         print '<td><input type="checkbox" name="delete" value="%s"></td>' % postid
         print '<td><a href="post.cgi?edit=%s">Edit</a></td>' % postid
