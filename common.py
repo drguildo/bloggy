@@ -51,14 +51,10 @@ def print_headers(title):
     print '</head>'
 
 def print_class(msg, class_):
-    print '<div class="%s">' % class_
-    print '<p>%s</p>' % msg
-    print '</div>'
+    print '<div class="%s">%s</div>' % (class_, msg)
 
 def print_id(msg, id_):
-    print '<div id="%s">' % id_
-    print '<p>%s</p>' % msg
-    print '</div>'
+    print '<div id="%s">%s</div>' % (id_, msg)
 
 def print_error(msg):
     print_class(msg, "error")
