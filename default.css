@@ -27,6 +27,14 @@ input#posttitle, textarea#postbody, table#postlist {
     text-align: center;
 }
 
+.button {
+    background-color: #fdfeea;
+    border: medium solid black;
+    padding: 0.4em;
+    font-size: large;
+    font-weight: bold;
+}
+
 table#postlist {
     border: thin solid black;
     width: 100%;

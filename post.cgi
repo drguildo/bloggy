@@ -86,8 +86,8 @@ print '<input name="title" id="posttitle" type="text" value="%s">' % cgi.escape(
 print '<textarea name="body" id="postbody">%s</textarea>' % cgi.escape(edit_text, True)
 
 print '<p>'
-print '<input type="submit" name="preview" value="Preview">'
-print '<input type="submit" name="submit" value="Submit">'
+print '<input type="submit" name="preview" value="Preview" class="button">'
+print '<input type="submit" name="submit" value="Submit" class="button">'
 print '</p>'
 print '</div>'
 
