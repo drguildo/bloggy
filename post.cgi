@@ -49,6 +49,8 @@ elif form.has_key("title") and form.has_key("body"):
         conn.execute("UPDATE entries SET title = ?, text = ? WHERE id = ?", (form.getvalue("title"), form.getvalue("body"), form.getvalue("update")))
     else:
         curtime = int(time.time())
+        # Convert hours to seconds.
+        curtime = curtime + (config.TOFFSET * 60 * 60)
         conn.execute("INSERT INTO entries VALUES (NULL, ?, ?, ?)",
                 (curtime, form.getvalue("title"), form.getvalue("body")))
 
@@ -62,7 +64,7 @@ else:
     for (postid, date, title) in conn.execute("SELECT id, date, title FROM entries ORDER BY date DESC"):
         print '<tr>'
         print '<td>%s</td>' % postid
-        print '<td>%s</td>' % time.ctime(date)
+        print '<td>%s</td>' % time.strftime("%y/%m/%d %H:%M:%S", time.gmtime(date))
         print '<td>%s</td>' % ('<a href="index.cgi?id=' + str(postid) + '">' + title + '</a>')
         print '<td><input type="checkbox" name="delete" value="%s"></td>' % postid
         print '<td><a href="post.cgi?edit=%s">Edit</a></td>' % postid
