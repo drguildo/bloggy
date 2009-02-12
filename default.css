@@ -6,16 +6,6 @@ body {
     text-align: justify;
 }
 
-#header {
-    font-size: 24pt;
-    font-weight: bold;
-    text-align: center;
-}
-
-#footer {
-    text-align: center;
-}
-
 .blogpost, .error, .message, #footer {
     padding-left: 1em;
     padding-right: 1em;
@@ -53,13 +43,17 @@ input#posttitle, textarea#postbody {
     width: 80%;
 }
 
-#editing {
-    margin: 1em;
+#header, #footer, #navigation {
+    padding-top: 0.4em;
+    padding-bottom: 0.4em;
     text-align: center;
 }
 
-#navigation {
-    padding-top: 0.4em;
-    padding-bottom: 0.4em;
+#header {
+    font-size: 24pt;
+}
+
+#editing {
+    margin: 1em;
     text-align: center;
 }
