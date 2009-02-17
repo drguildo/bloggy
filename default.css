@@ -30,6 +30,7 @@ input#posttitle, textarea#postbody, table#postlist {
 .button {
     background-color: #fdfeea;
     border: medium solid black;
+    color: black;
     padding: 0.4em;
     font-size: large;
     font-weight: bold;
