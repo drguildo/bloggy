@@ -20,6 +20,8 @@ import config
 
 import markdown2
 
+# Database interactions.
+
 def connect():
     try:
         conn = sqlite3.connect(config.DBPATH)
@@ -30,6 +32,18 @@ def connect():
                 directory permissions.")
         sys.exit(1)
     return conn
+
+def getposts(conn, offset=0, numposts=config.NUMPOSTS):
+    posts = []
+    for row in conn.execute("SELECT * FROM entries ORDER BY date DESC LIMIT ? OFFSET ?",
+            (numposts, offset)):
+        posts.append(row)
+    return posts
+
+def getpost(conn, postid):
+    row = conn.execute("SELECT * FROM entries WHERE id = ?",
+            (postid,)).fetchone()
+    return row
 
 def getnumposts(conn, postid=None):
     """Enumerate the number of posts in the database. If an ID is
@@ -43,6 +57,8 @@ def getnumposts(conn, postid=None):
     else:
         numposts = conn.execute("SELECT count(id) FROM entries").fetchone()
     return int(numposts[0])
+
+# Output formatting.
 
 def print_headers(title):
     print '<head>'

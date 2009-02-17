@@ -25,6 +25,8 @@ import config
 edit_title = "Please enter a title."
 edit_text = "Type something interesting."
 
+conn = common.connect()
+
 form = cgi.FieldStorage()
 
 print 'Content-type: text/html; charset=UTF-8\n'
@@ -33,8 +35,6 @@ print '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/h
 print '<html>'
 
 common.print_headers(config.TITLE + " - Post")
-
-conn = common.connect()
 
 if form.has_key("delete"):
     for postid in form.getlist("delete"):

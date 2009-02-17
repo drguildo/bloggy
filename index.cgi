@@ -15,11 +15,11 @@
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 import cgi
-#import cgitb; cgitb.enable()
-import sqlite3
 
 import common
 import config
+
+conn = common.connect()
 
 form = cgi.FieldStorage()
 
@@ -32,16 +32,14 @@ common.print_headers(config.TITLE)
 
 common.header()
 
-conn = common.connect()
-
 numposts = common.getnumposts(conn)
 if numposts == 0:
     common.print_msg('Nothing here yet. How about you <a href="post.cgi">post</a> something interesting?')
 else:
     if form.has_key("id"):
-        if common.getnumposts(conn, form.getvalue("id")) > 0:
-            (title, text, date) = conn.execute("SELECT title, text, date FROM entries WHERE id = ?",
-                    (form.getvalue("id"),)).fetchone()
+        post = common.getpost(conn, form.getvalue("id"))
+        if post:
+            (_, date, title, text) = post
             common.print_post(title, text, date)
         else:
             common.print_msg("No such post.")
@@ -49,8 +47,8 @@ else:
         offset = 0
         if form.has_key("offset"):
             offset = int(form.getvalue("offset"))
-        for (postid, title, text, date) in conn.execute("SELECT id, title, text, date FROM entries ORDER BY date DESC LIMIT ? OFFSET ?",
-                (config.NUMPOSTS, offset)):
+        posts = common.getposts(conn, offset)
+        for (postid, date, title, text) in posts:
             title = '<a href="index.cgi?id=%s">%s</a>' % (postid, title)
             common.print_post(title, text, date)
 
