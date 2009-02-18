@@ -69,7 +69,7 @@ else:
     print '</table>'
 
 if form.has_key("edit"):
-    print '<p><b>Editing post %s.</b></p>' % form.getvalue("edit")
+    common.print_msg("Editing post %s." % form.getvalue("edit"))
     print '<input type="hidden" name="update" value="%s">' % form.getvalue("edit")
 
 if form.has_key("preview"):
