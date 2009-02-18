@@ -23,6 +23,7 @@ import config
 
 edit_title = "Please enter a title."
 edit_text = "Type something interesting."
+edit_date = int(time.time())
 
 conn = common.connect()
 
@@ -76,8 +77,10 @@ if form.has_key("preview"):
     # correctly replaces an existing post rather than inserting a new
     # one.
     if form.has_key("update"):
+        (edit_date, _, _) = common.getpost(conn,
+                form.getvalue("update"))
         print '<input type="hidden" name="update" value="%s">' % form.getvalue("update")
-    common.print_post(edit_title, edit_text)
+    common.print_post(edit_title, edit_text, edit_date)
 
 print '<div id="editing">'
 print '<input name="title" id="posttitle" type="text" value="%s">' % cgi.escape(edit_title, True)
