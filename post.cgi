@@ -37,9 +37,9 @@ print '<html>'
 common.print_headers(config.TITLE + " - Post")
 
 if form.has_key("delete"):
-    for postid in form.getlist("delete"):
-        common.deletepost(conn, postid)
-elif form.has_key("preview"):
+    common.deletepost(conn, form.getvalue("delete"))
+
+if form.has_key("preview"):
     edit_title = form.getvalue("title")
     edit_text = form.getvalue("body")
 elif form.has_key("edit"):
@@ -57,13 +57,13 @@ if common.getnumposts(conn) == 0:
     common.print_msg("Nothing here yet.")
 else:
     print '<table id="postlist">'
-    print '<tr><th>ID</th><th>Date</th><th>Title</th><th>Delete</th></tr>'
+    print '<tr><th>ID</th><th>Date</th><th>Title</th></tr>'
     for (postid, date, title, _) in common.getposts(conn):
         print '<tr>'
         print '<td>%s</td>' % postid
         print '<td>%s</td>' % time.strftime("%y/%m/%d %H:%M:%S", time.gmtime(date))
         print '<td>%s</td>' % ('<a href="index.cgi?id=' + str(postid) + '">' + title + '</a>')
-        print '<td><input type="checkbox" name="delete" value="%s"></td>' % postid
+        print '<td><a href="post.cgi?delete=%s">Delete</a></td>' % postid
         print '<td><a href="post.cgi?edit=%s">Edit</a></td>' % postid
         print '</tr>'
     print '</table>'
