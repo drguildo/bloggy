@@ -39,7 +39,7 @@ else:
     if form.has_key("id"):
         post = common.getpost(conn, form.getvalue("id"))
         if post:
-            (_, date, title, text) = post
+            (date, title, text) = post
             common.print_post(title, text, date)
         else:
             common.print_msg("No such post.")
@@ -47,7 +47,7 @@ else:
         offset = 0
         if form.has_key("offset"):
             offset = int(form.getvalue("offset"))
-        posts = common.getposts(conn, offset)
+        posts = common.getposts(conn, offset, config.NUMPOSTS)
         for (postid, date, title, text) in posts:
             title = '<a href="index.cgi?id=%s">%s</a>' % (postid, title)
             common.print_post(title, text, date)

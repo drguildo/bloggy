@@ -33,23 +33,19 @@ def connect():
         sys.exit(1)
     return conn
 
-def getposts(conn, offset=0, numposts=config.NUMPOSTS):
-    posts = []
-    for row in conn.execute("SELECT * FROM entries ORDER BY date DESC LIMIT ? OFFSET ?",
-            (numposts, offset)):
-        posts.append(row)
-    return posts
-
-def getpost(conn, postid):
-    row = conn.execute("SELECT * FROM entries WHERE id = ?",
-            (postid,)).fetchone()
-    return row
+def addpost(conn, title, body):
+    curtime = int(time.time())
+    # Convert hours to seconds.
+    curtime = curtime + (config.TOFFSET * 60 * 60)
+    conn.execute("INSERT INTO entries VALUES (NULL, ?, ?, ?)",
+            (curtime, title, body))
 
 def getnumposts(conn, postid=None):
-    """Enumerate the number of posts in the database. If an ID is
-    specified then enumerate the number of posts with that ID. The
-    result of the latter should be 0 or 1 as essentially this is a check
-    for whether the specified post exists.
+    """Enumerate the number of posts in the database.
+
+    If an ID is specified then enumerate the number of posts with that
+    ID. The result of the latter should be 0 or 1 as essentially this is
+    a check for whether the specified post exists.
     """
     if postid:
         numposts = conn.execute("SELECT count(id) FROM entries WHERE id = ?",
@@ -57,6 +53,35 @@ def getnumposts(conn, postid=None):
     else:
         numposts = conn.execute("SELECT count(id) FROM entries").fetchone()
     return int(numposts[0])
+
+def getposts(conn, offset=0, numposts=0):
+    """Return a list of numposts posts beginning at offset.
+
+    SQLite doesn't seem to support the use of OFFSET without LIMIT so
+    whenever numposts is ommited, we return every post.
+    """
+    posts = []
+    if numposts == 0:
+        for row in conn.execute("SELECT * FROM entries ORDER BY date DESC"):
+            posts.append(row)
+    else:
+        for row in conn.execute("SELECT * FROM entries ORDER BY date DESC LIMIT ? OFFSET ?",
+                (numposts, offset)):
+            posts.append(row)
+    return posts
+
+def getpost(conn, postid):
+    row = conn.execute("SELECT * FROM entries WHERE id = ?",
+            (postid,)).fetchone()
+    # No need to return the ID as it's one of the parameters.
+    return row[1:]
+
+def updatepost(conn, postid, title, body):
+    conn.execute("UPDATE entries SET title = ?, text = ? WHERE id = ?",
+            (title, body, postid))
+
+def deletepost(conn, postid):
+    conn.execute("DELETE FROM entries WHERE id = ?", (postid,))
 
 # Output formatting.
 

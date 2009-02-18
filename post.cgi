@@ -16,7 +16,6 @@
 
 import cgi
 #import cgitb; cgitb.enable()
-import sqlite3
 import time
 
 import common
@@ -38,21 +37,18 @@ common.print_headers(config.TITLE + " - Post")
 
 if form.has_key("delete"):
     for postid in form.getlist("delete"):
-        conn.execute("DELETE FROM entries WHERE id = ?", (postid,))
+        common.deletepost(conn, postid)
 elif form.has_key("preview"):
     edit_title = form.getvalue("title")
     edit_text = form.getvalue("body")
 elif form.has_key("edit"):
-    (edit_title, edit_text) = conn.execute("SELECT title, text FROM entries WHERE id = ?", (form.getvalue("edit"),)).fetchone()
+    (_, edit_title, edit_text) = common.getpost(conn, form.getvalue("edit"))
 elif form.has_key("title") and form.has_key("body"):
     if form.has_key("update"):
-        conn.execute("UPDATE entries SET title = ?, text = ? WHERE id = ?", (form.getvalue("title"), form.getvalue("body"), form.getvalue("update")))
+        common.updatepost(conn, form.getvalue("update"),
+                form.getvalue("title"), form.getvalue("body"))
     else:
-        curtime = int(time.time())
-        # Convert hours to seconds.
-        curtime = curtime + (config.TOFFSET * 60 * 60)
-        conn.execute("INSERT INTO entries VALUES (NULL, ?, ?, ?)",
-                (curtime, form.getvalue("title"), form.getvalue("body")))
+        common.addpost(conn, form.getvalue("title"), form.getvalue("body"))
 
 print '<form action="post.cgi" method="post">'
 
@@ -61,7 +57,7 @@ if common.getnumposts(conn) == 0:
 else:
     print '<table id="postlist">'
     print '<tr><th>ID</th><th>Date</th><th>Title</th><th>Delete</th></tr>'
-    for (postid, date, title) in conn.execute("SELECT id, date, title FROM entries ORDER BY date DESC"):
+    for (postid, date, title, _) in common.getposts(conn):
         print '<tr>'
         print '<td>%s</td>' % postid
         print '<td>%s</td>' % time.strftime("%y/%m/%d %H:%M:%S", time.gmtime(date))
